@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-10-19T07:12:07.976Z",
+  "network": "baseSepolia",
+  "contractAddresses": {
+    "inferencePayment": "0xdAe76f57ceCb35b3B053bE9D915e5e56de4B20D7",
+    "dividendPool": "0x55a70a35626CD452c1B8626F58e3B62670390dbE",
+    "virtualToken": "0xBcC7e9391F473AD9D1d1724d5DB51eF786E3667E",
+    "gameToken": "0x34C8e74187B003971Cb0b3dA2F7fe081b8e5835F"
+  },
+  "testData": {
+    "subscriptions": "12",
+    "totalRevenue": "170.0",
+    "creatorEarned": "51.0",
+    "dividendDistributed": "119.0",
+    "poolTotal": "119.0",
+    "totalClaimed": "0.1412100767804",
+    "pendingDividend": "118.8587899232196"
+  },
+  "userResults": {
+    "user1": {
+      "address": "0x31ca0eecbCF9442e0f9A00ae66aea3622119ccf1",
+      "virtualBalance": "1460.0517374290166",
+      "claimedDividend": "0.0"
+    },
+    "user2": {
+      "address": "0x670A540Eedc24d278Df7d05cF6F71004898a49Ce",
+      "virtualBalance": "1170.0611679353039",
+      "claimedDividend": "0.0220147763577"
+    }
+  }
+}

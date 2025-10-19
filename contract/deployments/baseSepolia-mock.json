@@ -1,0 +1,13 @@
+{
+  "network": "baseSepolia",
+  "deployer": "0xF39a729c7B6557958fa7772552BBB9fC62dAfDf6",
+  "timestamp": "2025-10-19T06:41:45.058Z",
+  "mockTokens": {
+    "virtualToken": "0xBcC7e9391F473AD9D1d1724d5DB51eF786E3667E",
+    "watchToken": "0x34C8e74187B003971Cb0b3dA2F7fe081b8e5835F"
+  },
+  "nextSteps": {
+    "1": "复制这两个地址到 .env 文件中的 VIRTUAL_TOKEN_ADDRESS 和 WATCH_TOKEN_ADDRESS",
+    "2": "运行 npm run deploy:sepolia 部署主合约"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "network": "baseSepolia",
+  "deployer": "0xF39a729c7B6557958fa7772552BBB9fC62dAfDf6",
+  "timestamp": "2025-10-19T06:44:12.312Z",
+  "contracts": {
+    "virtualToken": "0xBcC7e9391F473AD9D1d1724d5DB51eF786E3667E",
+    "gameToken": "0x34C8e74187B003971Cb0b3dA2F7fe081b8e5835F",
+    "dividendPool": "0x55a70a35626CD452c1B8626F58e3B62670390dbE",
+    "inferencePayment": "0xdAe76f57ceCb35b3B053bE9D915e5e56de4B20D7"
+  },
+  "monthlySubscriptionFee": "10.0 VIRTUAL"
+}

@@ -1,10 +1,6 @@
 {
-  "/api/content/list/route": "app/api/content/list/route.js",
-  "/api/content/stats/route": "app/api/content/stats/route.js",
-  "/api/content/upload/route": "app/api/content/upload/route.js",
+  "/api/subscription/status/route": "app/api/subscription/status/route.js",
   "/api/dividend/balance/route": "app/api/dividend/balance/route.js",
   "/api/subscription/activate/route": "app/api/subscription/activate/route.js",
-  "/api/dividend/withdraw/route": "app/api/dividend/withdraw/route.js",
-  "/api/inference/chat/route": "app/api/inference/chat/route.js",
-  "/api/subscription/status/route": "app/api/subscription/status/route.js"
+  "/_not-found/page": "app/_not-found/page.js"
 }

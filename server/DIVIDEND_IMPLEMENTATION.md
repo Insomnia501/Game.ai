@@ -45,14 +45,14 @@ const dividendTxResult = await blockchain.updateGameDividendPool(dividendPoolAdd
 
 **请求参数**：
 ```
-GET /api/dividend/balance?userAddress=0x...
+GET /api/dividend/balance?userAddress=0x123
 ```
 
 **响应格式**：
 ```json
 {
   "success": true,
-  "userAddress": "0x...",
+  "userAddress": "0x123",
   "dividend": {
     "pending": {
       "wei": "7000000000000000000",
@@ -93,7 +93,7 @@ GET /api/dividend/balance?userAddress=0x...
 ```json
 POST /api/dividend/withdraw
 {
-  "userAddress": "0x..."
+  "userAddress": "0x123"
 }
 ```
 
@@ -101,12 +101,12 @@ POST /api/dividend/withdraw
 ```json
 {
   "success": true,
-  "userAddress": "0x...",
+  "userAddress": "0x123",
   "availableAmount": "7.5",
   "transactionData": {
     "to": "0x分红池地址",
     "from": "0x用户地址",
-    "data": "0x...",  // claimDividend() 编码数据
+    "data": "0x123",  // claimDividend() 编码数据
     "value": "0"
   },
   "instructions": {
@@ -124,8 +124,8 @@ POST /api/dividend/withdraw
 ```json
 POST /api/dividend/withdraw
 {
-  "userAddress": "0x...",
-  "transactionHash": "0x...",
+  "userAddress": "0x123",
+  "transactionHash": "0x123",
   "amount": "5.5"
 }
 ```
@@ -134,12 +134,12 @@ POST /api/dividend/withdraw
 ```json
 {
   "success": true,
-  "userAddress": "0x...",
-  "transactionHash": "0x...",
+  "userAddress": "0x123",
+  "transactionHash": "0x123",
   "claimedAmount": "5.5",
   "status": "pending",
   "message": "分红提现记录已保存，请在区块浏览器上查看交易状态",
-  "explorerUrl": "https://sepolia.basescan.org/tx/0x..."
+  "explorerUrl": "https://sepolia.basescan.org/tx/0x123"
 }
 ```
 
@@ -271,7 +271,6 @@ $GAME 持有者下次 Claim 时获得新增分红
   - [x] `GAME_DIVIDEND_POOL_ADDRESS`
   - [x] `GAME_TOKEN_ADDRESS`
   - [x] `VIRTUAL_TOKEN_ADDRESS`
-  - [x] `DEPLOYER_PRIVATE_KEY`
   - [x] `BASE_SEPOLIA_RPC_URL`
 - [x] 数据库集合和索引创建
 - [x] 所有接口单元测试
@@ -287,15 +286,15 @@ $GAME 持有者下次 Claim 时获得新增分红
 curl -X POST http://localhost:3000/api/subscription/activate \
   -H "Content-Type: application/json" \
   -d '{
-    "userAddress": "0xUser123",
-    "transactionHash": "0x...",
+    "userAddress": "0x123",
+    "transactionHash": "0x123",
     "amount": "10"
   }'
 ```
 
 ### 示例 2：查询分红信息
 ```bash
-curl "http://localhost:3000/api/dividend/balance?userAddress=0xUser123"
+curl "http://localhost:3000/api/dividend/balance?userAddress=0x123"
 ```
 
 ### 示例 3：获取提现交易数据（前端用钱包签名）
@@ -303,7 +302,7 @@ curl "http://localhost:3000/api/dividend/balance?userAddress=0xUser123"
 curl -X POST http://localhost:3000/api/dividend/withdraw \
   -H "Content-Type: application/json" \
   -d '{
-    "userAddress": "0xUser123"
+    "userAddress": "0x123"
   }'
 ```
 
@@ -312,8 +311,8 @@ curl -X POST http://localhost:3000/api/dividend/withdraw \
 curl -X POST http://localhost:3000/api/dividend/withdraw \
   -H "Content-Type: application/json" \
   -d '{
-    "userAddress": "0xUser123",
-    "transactionHash": "0x...",
+    "userAddress": "0x123",
+    "transactionHash": "0x123",
     "amount": "5.5"
   }'
 ```

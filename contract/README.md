@@ -53,7 +53,6 @@ cp .env.example .env
 
 ```
 BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-BASE_SEPOLIA_PRIVATE_KEY=your_private_key_here
 ETHERSCAN_API_KEY=your_api_key_here
 ```
 

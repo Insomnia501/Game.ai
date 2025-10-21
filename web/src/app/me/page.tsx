@@ -7,15 +7,21 @@ import {
   API_BASE_URL,
   DIVIDEND_POOL_ADDRESS,
   INFERENCE_PAYMENT_ADDRESS,
+  VIRTUAL_TOKEN_ADDRESS,
+  VIRTUAL_TOKEN_DECIMALS,
 } from "@/lib/config";
 import { Loader2, RefreshCcw } from "lucide-react";
 import clsx from "clsx";
+import { parseUnits } from "viem";
 
-const inferencePaymentAbi = [
+const erc20Abi = [
   {
-    inputs: [],
-    name: "subscribeMonthly",
-    outputs: [],
+    inputs: [
+      { internalType: "address", name: "to", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "transfer",
+    outputs: [{ internalType: "bool", name: "success", type: "bool" }],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -101,7 +107,7 @@ export default function MePage() {
     retry: false,
   });
 
-  const { writeContractAsync: subscribeAsync, data: subscribeHash } =
+  const { writeContractAsync: tokenTransferAsync, data: subscribeHash } =
     useWriteContract();
   const { writeContractAsync: claimAsync, data: claimHash } = useWriteContract();
 
@@ -134,11 +140,19 @@ export default function MePage() {
       alert("请在 .env.local 中配置 NEXT_PUBLIC_INFERENCE_PAYMENT_ADDRESS。");
       return;
     }
+    if (!VIRTUAL_TOKEN_ADDRESS) {
+      alert("请在 .env.local 中配置 NEXT_PUBLIC_VIRTUAL_TOKEN_ADDRESS。");
+      return;
+    }
     try {
-      const hash = await subscribeAsync({
-        abi: inferencePaymentAbi,
-        functionName: "subscribeMonthly",
-        address: INFERENCE_PAYMENT_ADDRESS as `0x${string}`,
+      const hash = await tokenTransferAsync({
+        abi: erc20Abi,
+        functionName: "transfer",
+        address: VIRTUAL_TOKEN_ADDRESS as `0x${string}`,
+        args: [
+          INFERENCE_PAYMENT_ADDRESS as `0x${string}`,
+          parseUnits("10", VIRTUAL_TOKEN_DECIMALS),
+        ],
       });
       setSubscriptionTxHash(hash);
       await waitForHash(hash);

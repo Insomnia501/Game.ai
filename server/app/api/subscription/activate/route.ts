@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
     // 参数验证
     if (!userAddress || !transactionHash || !amount) {
       console.warn('[Subscription Activate API] 缺少必需参数')
-      return NextResponse.json(
+      return corsJson(
         {
           success: false,
           error: 'Missing required parameters: userAddress, transactionHash, amount',
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
     // 验证地址格式
     if (!isValidAddress(userAddress)) {
       console.warn('[Subscription Activate API] 无效的钱包地址:', userAddress)
-      return NextResponse.json(
+      return corsJson(
         {
           success: false,
           error: 'Invalid user address format',
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
     // 验证金额
     if (String(amount) !== SUBSCRIPTION_AMOUNT) {
       console.warn('[Subscription Activate API] 无效的金额:', amount, '期望:', SUBSCRIPTION_AMOUNT)
-      return NextResponse.json(
+      return corsJson(
         {
           success: false,
           error: `Invalid amount. Expected ${SUBSCRIPTION_AMOUNT} $VIRTUAL, got ${amount}`,
@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
     const txVerification = await verifyTransaction(transactionHash, normalizedAddress, amount)
     if (!txVerification.valid) {
       console.warn('[Subscription Activate API] 交易验证失败:', txVerification.error)
-      return NextResponse.json(
+      return corsJson(
         {
           success: false,
           error: 'Transaction verification failed',
@@ -233,7 +233,7 @@ export async function POST(request: NextRequest) {
       // 在实际生产环境中，可能需要添加重试机制或告警
     }
 
-    return NextResponse.json(
+    return corsJson(
       {
         success: true,
         expiresAt,
@@ -244,7 +244,7 @@ export async function POST(request: NextRequest) {
     )
   } catch (error) {
     console.error('[Subscription Activate API] 处理请求失败:', error)
-    return NextResponse.json(
+    return corsJson(
       {
         success: false,
         error: 'Failed to activate subscription',
@@ -259,12 +259,16 @@ export async function POST(request: NextRequest) {
  * 处理 OPTIONS 请求（用于 CORS 预检）
  */
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    },
-  })
+  return corsJson(null, { status: 200 })
+}
+
+function corsJson(body: any, init?: ResponseInit) {
+  const response = body === null
+    ? new NextResponse(null, init)
+    : NextResponse.json(body, init)
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  response.headers.set('Access-Control-Allow-Credentials', 'true')
+  return response
 }

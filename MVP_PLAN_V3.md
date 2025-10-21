@@ -219,14 +219,14 @@ Dify AI 知识库自动同步更新
 
 **API 1: 获取用户订阅状态**
 ```typescript
-GET /api/subscription/status?address=0x...
+GET /api/subscription/status?address=0x123
 
 Response:
 {
   "isActive": true,
   "expiresAt": 1729876000,        // Unix timestamp
   "daysRemaining": 15,
-  "transactionHash": "0x...",
+  "transactionHash": "0x123",
   "startedAt": 1729271200
 }
 
@@ -242,8 +242,8 @@ POST /api/subscription/activate
 
 Request Body:
 {
-  "userAddress": "0x...",
-  "transactionHash": "0x...",     // 支付交易哈希
+  "userAddress": "0x123",
+  "transactionHash": "0x123",     // 支付交易哈希
   "amount": "10"                   // 支付金额（验证用）
 }
 
@@ -271,7 +271,7 @@ POST /api/content/upload
 
 Request Body:
 {
-  "userAddress": "0x...",
+  "userAddress": "0x123",
   "gameTitle": "Elden Ring",           // 游戏名称
   "title": "Boss 攻略：玛格丽特，无名女王",
   "content": "完整的攻略文本...",
@@ -301,7 +301,7 @@ POST /api/inference/chat
 
 Request Body:
 {
-  "userAddress": "0x...",
+  "userAddress": "0x123",
   "question": "Elden Ring 中如何打败玛格丽特",
   "conversationId": "uuid"  // 可选，用于多轮对话
 }
@@ -362,11 +362,11 @@ const { data: pendingDividend } = useQuery({
 ```typescript
 {
   _id: ObjectId,
-  userAddress: "0x...",           // 用户钱包地址（唯一索引）
+  userAddress: "0x123",           // 用户钱包地址（唯一索引）
   status: "active" | "inactive",  // 订阅状态
   expiresAt: 1729876000,          // Unix timestamp，订阅到期时间
   startedAt: 1729271200,          // Unix timestamp，当前订阅开始时间
-  transactionHash: "0x...",       // 支付交易哈希（用于验证）
+  transactionHash: "0x123",       // 支付交易哈希（用于验证）
   renewedAt: 1729271200,          // Unix timestamp，最后续期时间
   createdAt: 1729271200,          // 记录创建时间
   updatedAt: 1729271200           // 记录更新时间
@@ -383,7 +383,7 @@ const { data: pendingDividend } = useQuery({
 {
   _id: ObjectId,
   contentId: "uuid",
-  userAddress: "0x...",                    // 创作者地址
+  userAddress: "0x123",                    // 创作者地址
   gameTitle: "Elden Ring",                 // 游戏名称
   title: "Boss 攻略：玛格丽特，无名女王",
   content: "完整的攻略文本...",
@@ -848,14 +848,14 @@ ContributionModal 内容：
 ## 🔑 关键合约地址（Base Network）
 
 ### Virtuals Protocol 核心合约
-- **$VIRTUAL Token (Base)**: `0x0b3e328455c4059EEb9e3f84b5543F74E24e7E1b`
-- **Creator Vault**: `0xdAd686299FB562f89e55DA05F1D96FaBEb2A2E32`
+- **$VIRTUAL Token (Base)**: `0x123`
+- **Creator Vault**: `0x123`
 
 ### GAME.ai 自定义合约（待部署）
-- **GameInferencePayment**: `0x...`（第 1 周部署）
-- **GameDividendPool**: `0x...`（第 1 周部署）
-- **ContentRewardPool**: `0x...`（第 1 周部署）
-- **$GAME Token**: `0x...`（通过 Virtuals Protocol 创建 GAME Agent 自动生成）
+- **GameInferencePayment**: `0x123`（第 1 周部署）
+- **GameDividendPool**: `0x123`（第 1 周部署）
+- **ContentRewardPool**: `0x123`（第 1 周部署）
+- **$GAME Token**: `0x123`（通过 Virtuals Protocol 创建 GAME Agent 自动生成）
 
 ---
 

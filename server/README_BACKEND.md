@@ -56,7 +56,7 @@ GAME.ai Backend 提供以下功能:
 
 ```bash
 # 克隆项目
-cd /Users/daniel/Code/10_project/Game/server
+cd /path/to/Game/server
 
 # 安装依赖
 npm install
@@ -87,7 +87,7 @@ node test/test-content-upload.js
 curl -X POST http://localhost:3000/api/content/upload \
   -H "Content-Type: application/json" \
   -d '{
-    "userAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "userAddress": "0x123",
     "gameTitle": "Elden Ring",
     "title": "Boss 攻略",
     "content": "详细的攻略...",
@@ -157,7 +157,7 @@ curl -X POST http://localhost:3000/api/content/upload \
 // gameContent 集合
 {
   contentId: "uuid",                   // 唯一 ID
-  userAddress: "0x...",                // 创作者地址
+  userAddress: "0x123",                // 创作者地址
   gameTitle: "Elden Ring",             // 游戏名称
   title: "Boss 攻略",                  // 标题
   content: "详细的攻略...",            // 内容
@@ -166,7 +166,7 @@ curl -X POST http://localhost:3000/api/content/upload \
   queryCount: 0,                       // 查询次数
   rewardAmount: "1",                   // 奖励 (GAME)
   rewardStatus: "distributed",         // 奖励状态
-  rewardTxHash: "0x...",              // 转账哈希
+  rewardTxHash: "0x123",              // 转账哈希
   createdAt: ISODate,
   updatedAt: ISODate
 }
@@ -186,13 +186,12 @@ MONGODB_DB_NAME=Vitals
 # 区块链
 BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
 CHAIN_ID=84532
-DEPLOYER_PRIVATE_KEY=0x...          # ⚠️ 保管好私钥
 
 # 合约地址
-GAME_TOKEN_ADDRESS=0x...
-VIRTUAL_TOKEN_ADDRESS=0x...
-GAME_INFERENCE_PAYMENT_ADDRESS=0x...
-GAME_DIVIDEND_POOL_ADDRESS=0x...
+GAME_TOKEN_ADDRESS=0x123
+VIRTUAL_TOKEN_ADDRESS=0x123
+GAME_INFERENCE_PAYMENT_ADDRESS=0x123
+GAME_DIVIDEND_POOL_ADDRESS=0x123
 
 # AI 服务
 DIFY_API_KEY=app-...
@@ -270,12 +269,10 @@ node test/test-content-upload.js
 
 ### 常见问题
 
-**Q: 获得 "DEPLOYER_PRIVATE_KEY not configured" 错误**
 
 A: 编辑 `.env` 文件，添加有效的私钥
 
 ```bash
-DEPLOYER_PRIVATE_KEY=0x...
 ```
 
 **Q: MongoDB 连接超时**

@@ -97,7 +97,6 @@ npm run test:subscription
 2. **配置环境**
    - 编辑 `.env` 文件
    - 设置 BASE_SEPOLIA_RPC_URL
-   - 设置 PRIVATE_KEY, PRIVATE_KEY_USER1, PRIVATE_KEY_USER2
    - 设置 VIRTUAL_TOKEN_ADDRESS, GAME_TOKEN_ADDRESS
 
 ### 标准测试流程
@@ -164,12 +163,12 @@ Game/contract/test-results/
 
   👥 用户结果:
     User1:
-      • 地址:             0x...
+      • 地址:             0x123
       • 剩余 VIRTUAL:     150
       • 获得分红:         14 VIRTUAL
 
     User2:
-      • 地址:             0x...
+      • 地址:             0x123
       • 剩余 VIRTUAL:     180
       • 获得分红:         7 VIRTUAL
 ```
@@ -183,16 +182,12 @@ Game/contract/test-results/
 ```
 # Base Sepolia Network
 BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-BASE_SEPOLIA_PRIVATE_KEY=your_key_here
 
 # Account Private Keys
-PRIVATE_KEY=26a01bb62e523b8c1569660e50c8d4db161d30e743c1aa9589aa4b7df1a66e12 # deployer/creator
-PRIVATE_KEY_USER1=0720a03befb16fbe1194f48f611b8335c43a135dbc1a5432426da0f9d99ac3b2 # user1
-PRIVATE_KEY_USER2=4a176cf43917707a501fec6950a5b3602ba057cfde5223f82524281ee30a92bb # user2
 
 # Token Addresses (from deploy:sepolia:mock)
-VIRTUAL_TOKEN_ADDRESS=0xa5d3E13f26D16A4Af2AEb9f5b6f6a2b7029321Fd
-GAME_TOKEN_ADDRESS=0x67f36a21A653B37aB2105cd23Ffe73956b7C1B5E
+VIRTUAL_TOKEN_ADDRESS=0x123
+GAME_TOKEN_ADDRESS=0x123
 ```
 
 ---
@@ -231,9 +226,6 @@ GAME_TOKEN_ADDRESS=0x67f36a21A653B37aB2105cd23Ffe73956b7C1B5E
 
 ### Q: 为什么需要 3 个私钥？
 A:
-- PRIVATE_KEY: 部署者/创作者账户
-- PRIVATE_KEY_USER1: 测试用户 1
-- PRIVATE_KEY_USER2: 测试用户 2
 
 ### Q: 如何重新部署合约？
 A:

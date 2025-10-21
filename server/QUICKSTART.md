@@ -13,7 +13,7 @@
 
 ### 1.1 安装依赖
 ```bash
-cd /Users/daniel/Code/10_project/Game/server
+cd /path/to/Game/server
 npm install
 ```
 
@@ -22,10 +22,9 @@ npm install
 
 ```bash
 # 从合约部署信息中获取 deployer 地址
-# deployments/baseSepolia.json 中记录了 deployer: 0xF39a729c7B6557958fa7772552BBB9fC62dAfDf6
+# deployments/baseSepolia.json 中记录了 deployer: 0x123
 
 # 设置 Deployer 私钥（从你的钱包管理工具中获取）
-DEPLOYER_PRIVATE_KEY=0x...your_private_key...
 ```
 
 > ⚠️ **安全警告**: 不要在版本控制中提交真实的私钥，只在本地开发环境中使用
@@ -64,7 +63,7 @@ node test/test-content-upload.js
 curl -X POST http://localhost:3000/api/content/upload \
   -H "Content-Type: application/json" \
   -d '{
-    "userAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "userAddress": "0x123",
     "gameTitle": "Elden Ring",
     "title": "玛格丽特 Boss 完整攻略",
     "content": "## Boss 攻略\n\n### 基本信息\n- 位置：艾尔登树前方\n- 弱点：雷电伤害\n- 推荐等级：30-40\n\n### 打法策略\n保持距离，观察攻击模式...",
@@ -78,7 +77,7 @@ curl -X POST http://localhost:3000/api/content/upload \
 {
   "success": true,
   "contentId": "550e8400-e29b-41d4-a716-446655440000",
-  "rewardTxHash": "0x123abc456def...",
+  "rewardTxHash": "0x123",
   "message": "内容上传成功，已获得 1 GAME 代币奖励"
 }
 ```
@@ -86,7 +85,7 @@ curl -X POST http://localhost:3000/api/content/upload \
 #### 3.2 查询用户已上传的内容
 
 ```bash
-curl -X GET "http://localhost:3000/api/content/list?address=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266&limit=10&skip=0"
+curl -X GET "http://localhost:3000/api/content/list?address=0x123&limit=10&skip=0"
 ```
 
 **成功响应** (200):
@@ -113,7 +112,7 @@ curl -X GET "http://localhost:3000/api/content/list?address=0xf39Fd6e51aad88F6F4
 #### 3.3 查询创作者统计
 
 ```bash
-curl -X GET "http://localhost:3000/api/content/stats?address=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+curl -X GET "http://localhost:3000/api/content/stats?address=0x123"
 ```
 
 **成功响应** (200):
@@ -134,7 +133,7 @@ curl -X GET "http://localhost:3000/api/content/stats?address=0xf39Fd6e51aad88F6F
 #### 3.4 查询订阅状态
 
 ```bash
-curl -X GET "http://localhost:3000/api/subscription/status?address=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+curl -X GET "http://localhost:3000/api/subscription/status?address=0x123"
 ```
 
 #### 3.5 激活订阅
@@ -143,8 +142,8 @@ curl -X GET "http://localhost:3000/api/subscription/status?address=0xf39Fd6e51aa
 curl -X POST http://localhost:3000/api/subscription/activate \
   -H "Content-Type: application/json" \
   -d '{
-    "userAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    "transactionHash": "0x...",
+    "userAddress": "0x123",
+    "transactionHash": "0x123",
     "amount": "10"
   }'
 ```
@@ -155,7 +154,7 @@ curl -X POST http://localhost:3000/api/subscription/activate \
 curl -X POST http://localhost:3000/api/inference/chat \
   -H "Content-Type: application/json" \
   -d '{
-    "userAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "userAddress": "0x123",
     "question": "Elden Ring 中如何打败玛格丽特"
   }'
 ```
@@ -170,7 +169,7 @@ curl -X POST http://localhost:3000/api/inference/chat \
 6. Body (raw JSON):
 ```json
 {
-  "userAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "userAddress": "0x123",
   "gameTitle": "Elden Ring",
   "title": "玛格丽特 Boss 攻略",
   "content": "详细的攻略文本...",
@@ -204,7 +203,7 @@ use Vitals
 db.gameContent.find()
 
 # 查询特定用户的内容
-db.gameContent.find({ userAddress: "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266" })
+db.gameContent.find({ userAddress: "0x123" })
 
 # 查看集合统计
 db.gameContent.stats()
@@ -219,18 +218,18 @@ db.gameContent.stats()
 后端服务会输出详细的日志，显示各个操作的进行情况：
 
 ```
-[Content Upload API] 收到请求 | 用户: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 | 游戏: Elden Ring
+[Content Upload API] 收到请求 | 用户: 0x123 | 游戏: Elden Ring
 [Content Upload API] 存储内容到数据库...
 [Content Upload API] 内容已存储，ID: 550e8400-e29b-41d4-a716-446655440000
 [Content Upload API] 准备转账 1 GAME 代币...
 [Blockchain] 准备转账 ERC20 代币
-[Blockchain] 代币地址: 0x34C8e74187B003971Cb0b3dA2F7fe081b8e5835F
-[Blockchain] 接收地址: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+[Blockchain] 代币地址: 0x123
+[Blockchain] 接收地址: 0x123
 [Blockchain] 转账数量: 1000000000000000000
 [Blockchain] 执行转账交易...
-[Blockchain] 交易已发送，Hash: 0x123abc456def...
+[Blockchain] 交易已发送，Hash: 0x123
 [Blockchain] 交易已确认，区块号: 12345678
-[Content Upload API] 转账成功，TX Hash: 0x123abc456def...
+[Content Upload API] 转账成功，TX Hash: 0x123
 [Content Upload API] 数据库已更新，转账状态: distributed
 ```
 
@@ -244,7 +243,7 @@ db.gameContent.stats()
 ```bash
 node -e "
 const ethers = require('ethers');
-const pk = '0x...';
+const pk = '0x123';
 try {
   const wallet = new ethers.Wallet(pk);
   console.log('✓ 钱包地址:', wallet.address);
@@ -260,11 +259,9 @@ try {
 
 ## 6️⃣ 常见问题
 
-### Q: 获得 "DEPLOYER_PRIVATE_KEY not configured" 错误
 
 **A**: 编辑 `.env` 文件，添加有效的私钥：
 ```bash
-DEPLOYER_PRIVATE_KEY=0x...your_private_key...
 ```
 
 ### Q: 转账失败，提示 "Insufficient balance"

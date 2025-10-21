@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
     // 参数验证
     if (!userAddress || !question) {
       console.warn('[Chat API] 缺少必需参数: userAddress 或 question')
-      return NextResponse.json(
+      return corsJson(
         {
           error: 'Missing required parameters: userAddress and question',
         },
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
     // 验证地址格式
     if (!isValidAddress(userAddress)) {
       console.warn('[Chat API] 无效的钱包地址:', userAddress)
-      return NextResponse.json(
+      return corsJson(
         {
           error: 'Invalid wallet address format',
         },
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
     // 验证问题长度
     if (typeof question !== 'string' || question.trim().length === 0) {
       console.warn('[Chat API] 问题内容无效')
-      return NextResponse.json(
+      return corsJson(
         {
           error: 'Question must be a non-empty string',
         },
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
 
     if (question.length > 2000) {
       console.warn('[Chat API] 问题内容过长')
-      return NextResponse.json(
+      return corsJson(
         {
           error: 'Question must be less than 2000 characters',
         },
@@ -145,7 +145,7 @@ export async function POST(request: NextRequest) {
 
     if (!subscriptionStatus.isActive) {
       console.warn('[Chat API] 订阅验证失败:', subscriptionStatus.error)
-      return NextResponse.json(
+      return corsJson(
         {
           error: subscriptionStatus.error,
           code: 'SUBSCRIPTION_INACTIVE',
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
     const apiKey = process.env.DIFY_API_KEY
     if (!apiKey) {
       console.error('[Chat API] DIFY_API_KEY 环境变量未配置')
-      return NextResponse.json(
+      return corsJson(
         {
           error: 'AI service is not properly configured',
           code: 'CONFIG_ERROR',
@@ -185,7 +185,7 @@ export async function POST(request: NextRequest) {
 
       // 处理特定的 Dify 错误
       if (difyError.response?.status === 401) {
-        return NextResponse.json(
+        return corsJson(
           {
             error: 'AI service authentication failed',
             code: 'DIFY_AUTH_FAILED',
@@ -195,7 +195,7 @@ export async function POST(request: NextRequest) {
       }
 
       if (difyError.response?.status === 429) {
-        return NextResponse.json(
+        return corsJson(
           {
             error: 'AI service rate limit exceeded, please try again later',
             code: 'DIFY_RATE_LIMITED',
@@ -229,7 +229,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 5. 返回响应
-    return NextResponse.json(
+    return corsJson(
       {
         answer: difyResponse.answer,
         conversationId: difyResponse.conversation_id,
@@ -248,7 +248,7 @@ export async function POST(request: NextRequest) {
     // 处理网络/超时错误
     if (error instanceof Error) {
       if (error.message.includes('ECONNREFUSED') || error.message.includes('ENOTFOUND')) {
-        return NextResponse.json(
+        return corsJson(
           {
             error: 'Failed to connect to AI service',
             code: 'SERVICE_UNAVAILABLE',
@@ -258,7 +258,7 @@ export async function POST(request: NextRequest) {
       }
 
       if (error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
-        return NextResponse.json(
+        return corsJson(
           {
             error: 'Request to AI service timed out, please try again',
             code: 'REQUEST_TIMEOUT',
@@ -268,7 +268,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json(
+    return corsJson(
       {
         error: 'Failed to process chat request',
         code: 'INTERNAL_ERROR',
@@ -283,12 +283,16 @@ export async function POST(request: NextRequest) {
  * 处理 OPTIONS 请求（用于 CORS 预检）
  */
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    },
-  })
+  return corsJson(null, { status: 200 })
+}
+
+function corsJson(body: any, init?: ResponseInit) {
+  const response = body === null
+    ? new NextResponse(null, init)
+    : NextResponse.json(body, init)
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  response.headers.set('Access-Control-Allow-Credentials', 'true')
+  return response
 }

@@ -23,7 +23,7 @@
 
 **参数**:
 ```
-address: 0x... (必需) - 用户钱包地址
+address: 0x123 (必需) - 用户钱包地址
 ```
 
 **响应示例**:
@@ -32,7 +32,7 @@ address: 0x... (必需) - 用户钱包地址
   "isActive": true,
   "expiresAt": 1729876000,
   "daysRemaining": 15,
-  "transactionHash": "0x...",
+  "transactionHash": "0x123",
   "startedAt": 1729271200
 }
 ```
@@ -52,8 +52,8 @@ address: 0x... (必需) - 用户钱包地址
 **请求体**:
 ```json
 {
-  "userAddress": "0x...",
-  "transactionHash": "0x...",
+  "userAddress": "0x123",
+  "transactionHash": "0x123",
   "amount": "10"
 }
 ```
@@ -84,7 +84,7 @@ address: 0x... (必需) - 用户钱包地址
 **请求体**:
 ```json
 {
-  "userAddress": "0x...",
+  "userAddress": "0x123",
   "question": "Elden Ring 中如何打败玛格丽特",
   "conversationId": "uuid" // 可选，用于多轮对话
 }
@@ -121,7 +121,7 @@ address: 0x... (必需) - 用户钱包地址
 **请求体**:
 ```json
 {
-  "userAddress": "0x...",
+  "userAddress": "0x123",
   "gameTitle": "Elden Ring",
   "title": "Boss 攻略：玛格丽特，无名女王",
   "content": "完整的攻略文本...",
@@ -135,7 +135,7 @@ address: 0x... (必需) - 用户钱包地址
 {
   "success": true,
   "contentId": "550e8400-e29b-41d4-a716-446655440000",
-  "rewardTxHash": "0x...",
+  "rewardTxHash": "0x123",
   "message": "内容上传成功，已获得 1 GAME 代币奖励"
 }
 ```
@@ -162,7 +162,7 @@ address: 0x... (必需) - 用户钱包地址
 
 **参数**:
 ```
-address: 0x... (必需) - 用户钱包地址
+address: 0x123 (必需) - 用户钱包地址
 limit: 20 (可选) - 每页数量，最多 100，默认 20
 skip: 0 (可选) - 跳过的记录数，默认 0
 ```
@@ -201,7 +201,7 @@ skip: 0 (可选) - 跳过的记录数，默认 0
 
 **参数**:
 ```
-address: 0x... (必需) - 用户钱包地址
+address: 0x123 (必需) - 用户钱包地址
 ```
 
 **响应示例**:
@@ -280,13 +280,12 @@ MONGODB_DB_NAME=Vitals
 # 区块链
 BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
 CHAIN_ID=84532
-DEPLOYER_PRIVATE_KEY=0x... # deployer 账户私钥
 
 # 智能合约地址
-GAME_TOKEN_ADDRESS=0x...
-VIRTUAL_TOKEN_ADDRESS=0x...
-GAME_INFERENCE_PAYMENT_ADDRESS=0x...
-GAME_DIVIDEND_POOL_ADDRESS=0x...
+GAME_TOKEN_ADDRESS=0x123
+VIRTUAL_TOKEN_ADDRESS=0x123
+GAME_INFERENCE_PAYMENT_ADDRESS=0x123
+GAME_DIVIDEND_POOL_ADDRESS=0x123
 
 # AI 服务
 DIFY_API_KEY=app-...
@@ -311,7 +310,7 @@ const BASE_URL = 'http://localhost:3000/api'
 // 上传内容
 async function uploadContent() {
   const response = await axios.post(`${BASE_URL}/content/upload`, {
-    userAddress: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+    userAddress: '0x123',
     gameTitle: 'Elden Ring',
     title: 'Boss 攻略',
     content: '详细的攻略...',
@@ -326,7 +325,7 @@ async function uploadContent() {
 async function checkSubscription() {
   const response = await axios.get(`${BASE_URL}/subscription/status`, {
     params: {
-      address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+      address: '0x123',
     },
   })
 
@@ -348,7 +347,7 @@ BASE_URL = 'http://localhost:3000/api'
 response = requests.post(
     f'{BASE_URL}/content/upload',
     json={
-        'userAddress': '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+        'userAddress': '0x123',
         'gameTitle': 'Elden Ring',
         'title': 'Boss 攻略',
         'content': '详细的攻略...',
@@ -367,7 +366,7 @@ print(response.json())
 curl -X POST http://localhost:3000/api/content/upload \
   -H "Content-Type: application/json" \
   -d '{
-    "userAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "userAddress": "0x123",
     "gameTitle": "Elden Ring",
     "title": "Boss 攻略",
     "content": "详细的攻略...",
@@ -376,7 +375,7 @@ curl -X POST http://localhost:3000/api/content/upload \
   }'
 
 # 查询订阅状态
-curl -X GET "http://localhost:3000/api/subscription/status?address=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+curl -X GET "http://localhost:3000/api/subscription/status?address=0x123"
 ```
 
 ---

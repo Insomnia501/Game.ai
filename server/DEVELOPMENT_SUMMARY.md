@@ -51,7 +51,6 @@ test/
 ### 更新的文件
 ```
 ├── package.json                          # 添加 uuid 依赖
-└── .env                                  # 添加 DEPLOYER_PRIVATE_KEY 配置
 ```
 
 ---

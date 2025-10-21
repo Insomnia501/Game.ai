@@ -8,3 +8,6 @@ export const DIVIDEND_POOL_ADDRESS =
   process.env.NEXT_PUBLIC_DIVIDEND_POOL_ADDRESS || "";
 
 export const VIRTUAL_TOKEN_DECIMALS = 18;
+
+export const VIRTUAL_TOKEN_ADDRESS =
+  process.env.NEXT_PUBLIC_VIRTUAL_TOKEN_ADDRESS || "";
